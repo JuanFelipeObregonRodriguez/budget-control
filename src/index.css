@@ -154,6 +154,7 @@ header h1 {
     color: #b91c1c;
 }
 .alerta.success {
+    overflow: hidden;
 }
 
 .contenedor {
@@ -281,6 +282,7 @@ main {
     gap: 2rem;
     margin-bottom: 2rem;
     width: 100%;
+    height: 18rem;
 }
 
 .cantidad-gasto {
@@ -291,8 +293,9 @@ main {
 
 .contenido-gasto {
     display: flex;
-    align-items: center;
+    align-items: left;
     gap: 2rem;
+    text-align: left;
 }
 
 .contenido-gasto img {
@@ -393,22 +396,24 @@ body .modal {
 }
 
 /*** SWIPE LIST OVERRIDES **/
-.swipe-action__leading {
+.editar {
     background-color: var(--azul);
     color: var(--blanco);
     margin-bottom: 2rem;
+    padding: 20rem;
+    
 }
 
-.swipe-action__trailing {
+.eliminar {
     background-color: #db2777;
     margin-bottom: 2rem;
     color: var(--blanco);
+    padding: 20rem;
 }
 
-.swipeable-list .swipe-action {
+.swipeable-list {
     display: flex;
-    justify-content: center;
-    align-items: center;
     font-size: 2.4rem;
-    text-align: right;
+    border-radius: 20px;
+    height: 17rem;
 }

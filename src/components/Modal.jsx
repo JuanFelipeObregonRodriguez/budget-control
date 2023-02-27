@@ -2,17 +2,41 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable react/function-component-definition */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import CerrarModal from '../img/cerrar.svg';
 import Message from '../utils/Message';
 
 const Modal = ({
-  setModal, animar, setAnimar, saveBills,
+  setModal, animar, setAnimar, saveBills, editarGastos,
 }) => {
   const [nombre, setNombre] = useState('');
   const [cantidad, setCantidad] = useState('');
   const [categoria, setCategoria] = useState('');
   const [mensaje, setMensaje] = useState(false);
+  const [id, setId] = useState('');
+  const [fecha, setFecha] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if ([nombre, cantidad, categoria].includes('')) {
+      setMensaje('todos los campos son requeridos');
+      return;
+    }
+    saveBills({
+      nombre, cantidad, categoria, id, fecha,
+    });
+  };
+  useEffect(() => {
+    console.log(editarGastos);
+    if (Object.keys(editarGastos).length > 0) {
+      setNombre(editarGastos.nombre);
+      setCantidad(editarGastos.cantidad);
+      setCategoria(editarGastos.categoria);
+      setId(editarGastos.id);
+      setFecha(editarGastos.fecha);
+    }
+  }, [editarGastos]);
+
   const handleCerrar = () => {
     setAnimar(false);
     setTimeout(() => {
@@ -20,13 +44,6 @@ const Modal = ({
     }, 300);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if ([nombre, cantidad, categoria].includes('')) {
-      setMensaje('todos los campos son requeridos');
-    }
-    saveBills({ nombre, cantidad, categoria });
-  };
   return (
     <div className="modal">
       <div className="cerrar-modal">
@@ -44,7 +61,7 @@ const Modal = ({
               type="text"
               id="nombre-gasto"
               placeholder="añade el nombre del gasto"
-              value={nombre}
+              value={nombre || ''}
               onChange={(e) => setNombre(e.target.value)}
             />
           </label>
@@ -57,7 +74,7 @@ const Modal = ({
               type="number"
               id="cantidad"
               placeholder="añade la cantidad"
-              value={cantidad}
+              value={cantidad || ''}
               onChange={(e) => setCantidad(e.target.value)}
             />
           </label>
@@ -68,7 +85,7 @@ const Modal = ({
             {' '}
             <select
               id="option"
-              value={categoria}
+              value={categoria || ''}
               onChange={(e) => setCategoria(e.target.value)}
             >
               <option value="">--seleccione--</option>

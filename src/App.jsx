@@ -2,7 +2,8 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable react/function-component-definition */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+
 import Header from './components/Header';
 import IconoNuevoGasto from './img/nuevo-gasto.svg';
 import Modal from './components/Modal';
@@ -15,18 +16,34 @@ const App = () => {
   const [modal, setModal] = useState(false);
   const [animar, setAnimar] = useState(false);
   const [gastos, setGastos] = useState([]);
+  const [editarGastos, setEditarGastos] = useState({});
 
   const handleClickModal = () => {
     setModal(true);
-
+    setEditarGastos({});
     setTimeout(() => {
       setAnimar(true);
     }, 300);
   };
+  useEffect(() => {
+    if (Object.keys(editarGastos).length > 0) {
+      setModal(true);
+      setTimeout(() => {
+        setAnimar(true);
+      }, 300);
+    }
+  }, [editarGastos]);
+
   const saveBills = (gasto) => {
-    gasto.id = generateId();
-    gasto.fecha = Date.now();
-    setGastos([...gastos, gasto]);
+    if (gasto.id) {
+      const editar = gastos.map((gastoState) => (gastoState.id === gasto.id ? gasto : gastoState));
+      setGastos(editar);
+    } else {
+      gasto.id = generateId();
+      gasto.fecha = Date.now();
+      setGastos([...gastos, gasto]);
+    }
+
     setAnimar(false);
     setTimeout(() => {
       setModal(false);
@@ -47,7 +64,7 @@ const App = () => {
       {isValidBudget && (
         <>
           <main>
-            <BillList gastos={gastos} />
+            <BillList gastos={gastos} setEditarGastos={setEditarGastos} />
           </main>
           <div className="nuevo-gasto">
             <img
@@ -65,6 +82,7 @@ const App = () => {
           animar={animar}
           setAnimar={setAnimar}
           saveBills={saveBills}
+          editarGastos={editarGastos}
         />
       )}
     </div>
