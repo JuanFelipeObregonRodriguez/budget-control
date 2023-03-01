@@ -7,7 +7,7 @@ import CerrarModal from '../img/cerrar.svg';
 import Message from '../utils/Message';
 
 const Modal = ({
-  setModal, animar, setAnimar, saveBills, editarGastos,
+  setModal, animar, setAnimar, saveBills, editarGastos, setEditarGastos,
 }) => {
   const [nombre, setNombre] = useState('');
   const [cantidad, setCantidad] = useState('');
@@ -39,6 +39,7 @@ const Modal = ({
 
   const handleCerrar = () => {
     setAnimar(false);
+    setEditarGastos({});
     setTimeout(() => {
       setModal(false);
     }, 300);

@@ -25,7 +25,7 @@ const iconos = {
 
 };
 
-const Gasto = ({ gasto, setEditarGastos }) => {
+const Gasto = ({ gasto, setEditarGastos, deleteBills }) => {
   const {
     nombre, cantidad, categoria, fecha, id,
   } = gasto;
@@ -34,7 +34,7 @@ const Gasto = ({ gasto, setEditarGastos }) => {
       <SwipeableListItem
         swipeLeft={{
           content: <h1 className="eliminar ">eliminar</h1>,
-          action: () => console.info('swipe action triggered'),
+          action: () => deleteBills(id),
         }}
         swipeRight={{
           content: <h1 className="editar">editar</h1>,
