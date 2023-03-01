@@ -4,33 +4,42 @@ import React from 'react';
 import Gasto from './Gasto';
 
 const BillList = ({
-  gastos, setEditarGastos, deleteBills, filtro, gastosFiltrados,
+  gastos,
+  setEditarGastos,
+  deleteBills,
+  filter,
+  gastosFiltrados,
 }) => (
   <div className="listado-gastos contenedor">
-    <h2>{gastos.length ? 'Gastos' : 'no hay gastos aun'}</h2>
-
-    {
-
-     filtro ? (
-       gastosFiltrados.map((gasto) => (
-         <Gasto
-           gasto={gasto}
-           key={gasto.id}
-           setEditarGastos={setEditarGastos}
-           deleteBills={deleteBills}
-         />
-       ))
-     ) : (
-       gastos.map((gasto) => (
-         <Gasto
-           gasto={gasto}
-           key={gasto.id}
-           setEditarGastos={setEditarGastos}
-           deleteBills={deleteBills}
-         />
-       ))
-     )
-    }
+    {filter ? (
+      <div key="gastos-filtrados">
+        <h2>
+          {gastosFiltrados.length
+            ? 'Gastos'
+            : 'no hay gastos aun en esta categoría'}
+        </h2>
+        {gastosFiltrados.map((gasto) => (
+          <Gasto
+            key={gasto.id}
+            gasto={gasto}
+            setEditarGastos={setEditarGastos}
+            deleteBills={deleteBills}
+          />
+        ))}
+      </div>
+    ) : (
+      <div key="gastos">
+        <h2>{gastos.length ? 'Gastos' : 'no hay gastos aun'}</h2>
+        {gastos.map((gasto) => (
+          <Gasto
+            key={gasto.id}
+            gasto={gasto}
+            setEditarGastos={setEditarGastos}
+            deleteBills={deleteBills}
+          />
+        ))}
+      </div>
+    )}
   </div>
 );
 

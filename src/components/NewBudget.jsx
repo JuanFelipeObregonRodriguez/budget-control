@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/function-component-definition */
 
@@ -20,6 +21,7 @@ const NewBudget = ({ presupuesto, setPresupuesto, setIsValidBudget }) => {
 
   return (
     <div className="contenedor-presupuesto contenedor sombra">
+
       <form className="formulario" onSubmit={handlerSubmit}>
         <div className="campo">
           <label htmlFor="presupuestoId">
@@ -30,7 +32,7 @@ const NewBudget = ({ presupuesto, setPresupuesto, setIsValidBudget }) => {
               className="nuevo-presupuesto"
               id="presupuestoId"
               placeholder="añadir presupuesto"
-              value={presupuesto}
+              value={presupuesto || ''}
               onChange={(e) => setPresupuesto(Number(e.target.value))}
             />
           </label>

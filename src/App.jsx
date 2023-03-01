@@ -51,7 +51,8 @@ const App = () => {
 
   useEffect(() => {
     if (filter) {
-      const filterBills = gastos.map((filterBill) => filterBill.categoria === filter);
+      const filterBills = gastos.filter((filterBill) => filterBill.categoria === filter);
+      console.log(filterBills);
       setGastosFiltrados(filterBills);
     }
   }, [filter]);
@@ -61,7 +62,7 @@ const App = () => {
     setEditarGastos({});
     setTimeout(() => {
       setAnimar(true);
-    }, 300);
+    }, 500);
   };
 
   const saveBills = (gasto) => {
@@ -78,7 +79,7 @@ const App = () => {
     setAnimar(false);
     setTimeout(() => {
       setModal(false);
-    }, 300);
+    }, 500);
   };
   const deleteBills = (id) => {
     const deleteBill = gastos.filter((findGasto) => findGasto.id !== id);
@@ -90,6 +91,7 @@ const App = () => {
       <Header
         className={modal ? 'fijar' : ''}
         gastos={gastos}
+        setGastos={setGastos}
         presupuesto={presupuesto}
         setPresupuesto={setPresupuesto}
         isValidBudget={isValidBudget}
@@ -99,7 +101,10 @@ const App = () => {
       {isValidBudget && (
         <>
           <main>
-            <Filters filter={filter} setFilter={setFilter} />
+            <Filters
+              filter={filter}
+              setFilter={setFilter}
+            />
             <BillList
               filter={filter}
               gastosFiltrados={gastosFiltrados}
